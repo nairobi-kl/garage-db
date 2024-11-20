@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 from datetime import timedelta
+from dotenv import load_dotenv
+import os
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -78,12 +81,19 @@ WSGI_APPLICATION = 'auth_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+load_dotenv()
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',  # Використовуємо MySQL
+        'NAME': os.getenv('NAME'),          # Назва вашої бази даних
+        'USER': os.getenv('USER'),          # Ваш користувач MySQL
+        'PASSWORD': os.getenv('PASSWORD'),  # Ваш пароль для MySQL
+        'HOST': os.getenv('HOST'),                   # Хост, зазвичай localhost
+        'PORT': os.getenv('PORT'),                        # Порт MySQL (за замовчуванням 3306)
     }
 }
+
 
 
 # Password validation
